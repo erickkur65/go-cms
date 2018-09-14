@@ -1,0 +1,33 @@
+{{ template "_head.html" . }}
+
+<body>
+    <div class="container">
+        <h3>Halaman Profil Pengguna</h3>
+        <a href="/user/create" class="btn btn-primary">Tambah Pengguna</a>
+        <a href="/logout" class="btn btn-secondary">Keluar</a>
+
+        {{ if .Users }}
+            <table class="table table-bordered">
+            <tr>
+                <th>Email</th>
+                <th>Nama Depan</th> 
+                <th>Nama Belakang</th>
+                <th>Umur</th>
+                <th>Grup</th>
+                <th>Aksi</th>
+            </tr>
+            {{ range $key, $value := .Users }}
+                <tr>
+                <td>{{ $value.Email }}</td>
+                <td>{{ $value.NamaDepan }}</td>
+                <td>{{ $value.NamaBelakang }}</td>
+                <td>{{ $value.Umur }}</td>
+                <td>{{ $value.Grup.Name }}</td>
+                <td><a href="/user/edit/profile/{{ $value.ID }}">Ubah Profil</a><br/></td>
+                </tr>
+            {{ end }}
+            </table>
+        {{ end }}
+    </div>
+</body>
+</html>

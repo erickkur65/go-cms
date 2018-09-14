@@ -1,0 +1,54 @@
+{{ template "_head.html" . }}
+
+<body>
+    <div class="container">
+        <h3>Halaman Tambah Pengguna</h3>
+        <form action="/user/create" method="POST">
+            <input type="hidden" name="csrfToken" value="{{ .CsrfToken }}" />
+            <div class="form-group">
+                <label for="email">Email</label>
+                <div>
+                    <input type="email" class="form-control" id="email" name="email" maxlength="50" placeholder="Email" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Kata Sandi</label>
+                <div>
+                    <input type="password" class="form-control" id="password" name="password" maxlength="50" placeholder="Kata Sandi" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="firstname">Nama Depan</label>
+                <div>
+                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Nama Depan" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastname">Nama Belakang</label>
+                <div>
+                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nama Belakang" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="age">Umur</label>
+                <div>
+                    <input type="number" class="form-control" id="age" name="age" min="10" max="100" value="15">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="group">Grup</label>
+                <div>
+                     <select name="group" class="form-control">
+                        {{ range $key, $value := .Groups }}
+                            <option value="{{ $value.ID }}">{{ $value.Name }}</option>
+                        {{ end }}  
+                    </select>
+                </div>
+            </div>
+            <input type="submit" value="Daftar" class="btn btn-primary">
+        </form>
+
+        <a href="/profile" class="btn btn-secondary">Kembali</a>
+    </div>
+</body>
+</html>

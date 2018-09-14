@@ -1,0 +1,68 @@
+{{ template "_head.html" . }}
+
+<body>
+    <div class="container">
+        <h3>Ubah Profil Pengguna</h3>
+
+        <form action="/user/edit/profile" method="POST">
+            <input type="hidden" name="csrfToken" value="{{ .CsrfToken }}" />
+            <input type="hidden" id="userId" name="userId" value="{{ .User.ID }}">
+            <input type="hidden" id="userGroupId" name="userGroupId" value="{{ .UserGroupID }}">
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <div>
+                    <input type="email" class="form-control" id="email" name="email" maxlength="50" placeholder="Email" value="{{ .User.Email }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="new-password">Kata Sandi Baru</label>
+                <div>
+                    <input type="password" class="form-control" id="new-password" name="new-password" maxlength="50" placeholder="Kata Sandi Baru" />
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="firstname">Nama Depan</label>
+                <div>
+                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Nama Depan" value="{{ .User.NamaDepan }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastname">Nama Belakang</label>
+                <div>
+                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nama Belakang" value="{{ .User.NamaBelakang }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="age">Umur</label>
+                <div>
+                    <input type="number" class="form-control" id="age" name="age" min="10" max="100" value="{{ .User.Umur }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="group">Grup</label>
+                <div>
+                     <select name="group" id="group" class="form-control">
+                        {{ range $key, $value := .Groups }}
+                            <option value="{{ $value.ID }}">{{ $value.Name }}</option>
+                        {{ end }}  
+                    </select>
+                </div>
+            </div>
+            <input type="submit" value="Ubah" class="btn btn-primary">
+        </form>
+
+        <a href="/profile" class="btn btn-secondary">Kembali</a>
+    </div>
+</body>
+
+<script>
+    function setSelectedComboBox()
+    {
+        document.getElementById("group").selectedIndex = document.getElementById("userGroupId").value - 1;
+    }
+
+    setSelectedComboBox()
+</script>
+
+</html>
